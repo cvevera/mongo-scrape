@@ -1,0 +1,12 @@
+img {
+    height: 200px;
+    width: 200px;
+}
+
+.card {
+height: 350px;
+}
+#comment {
+    position: fixed;
+    right: 300px;
+}
