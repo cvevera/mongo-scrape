@@ -35,6 +35,16 @@ $.getJSON("/articles", function(data) {
     }
   });
   
+
+  $(document).on("click", "#scrape", function (){
+    $.ajax({
+      method: "GET",
+      url: "/scrape/"
+    })
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    });
+  });
   
   $(document).on("click", "h4", function() {
       console.log("test")
