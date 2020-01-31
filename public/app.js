@@ -2,7 +2,8 @@ $.getJSON("/articles", function(data) {
 
     for (var i = 0; i < data.length; i++) {
       var articleCard = $("<div>");
-      articleCard.addClass("card")
+      articleCard.addClass("card");
+      articleCard.addClass("scroll");
       var articleHeading = $("<h3>");
       articleHeading.addClass("card-heading")
       articleHeading.attr("data-id", data[i]._id)
@@ -29,27 +30,17 @@ $.getJSON("/articles", function(data) {
       articleCard.append(commentBtn);
 
       $("#articles").append(articleCard);
-      // var comments = $("<div>")
-      // comments.attr("id", "comment")
-      // articleCard.append(comments)
+      var comments = $("<div>")
+      comments.attr("id", ("comment" + data[i]._id))
+      articleCard.append(comments)
     }
-  });
-  
-
-  $(document).on("click", "#scrape", function (){
-    $.ajax({
-      method: "GET",
-      url: "/scrape/"
-    })
-    .then(function(dbArticle) {
-      res.json(dbArticle);
-    });
   });
   
   $(document).on("click", "h4", function() {
       console.log("test")
-    $("#comment").empty();
-    var thisId = $(this).attr("data-id");
+      var thisId = $(this).attr("data-id");
+    $("#comment"+ thisId).empty();
+    
   
     $.ajax({
       method: "GET",
@@ -57,16 +48,16 @@ $.getJSON("/articles", function(data) {
     })
       .then(function(data) {
         console.log(data);
-        $("#comment").append("<h5>" + "Commenting on: " + data.title + "</h5>");
-        $("#comment").append("<h6>" + "Comment Title:" + "</h6>");
-        $("#comment").append("<input id='titleinput' name='title' >");
-        $("#comment").append("<h6>" + "Comment Body:" + "</h6>");
-        $("#comment").append("<textarea id='bodyinput' name='body'></textarea>");
-        $("#comment").append("<br>");
-        $("#comment").append("<button data-id='" + data._id + "' id='savecomment'>Save comment</button>");
-        $("#comment").append("<br>");
+        $("#comment" + thisId).append("<h5>" + "Commenting on: " + data.title + "</h5>");
+        $("#comment"+ thisId).append("<h6>" + "Comment Title:" + "</h6>");
+        $("#comment"+ thisId).append("<input id='titleinput' name='title' >");
+        $("#comment"+ thisId).append("<h6>" + "Comment Body:" + "</h6>");
+        $("#comment"+ thisId).append("<textarea id='bodyinput' name='body'></textarea>");
+        $("#comment"+ thisId).append("<br>");
+        $("#comment"+ thisId).append("<button class='btn' data-id='" + data._id + "' id='savecomment'>Save comment</button>");
+        $("#comment"+ thisId).append("<br>");
 
-        $("#comment").append("<button data-id='" + data._id + "' id='deletecomment'>Delete comment</button>")
+        $("#comment"+ thisId).append("<button class='btn' data-id='" + data._id + "' id='deletecomment'>Delete comment</button>")
         if (data.comment) {
           $("#titleinput").val(data.comment.title);
           $("#bodyinput").val(data.comment.body);
@@ -87,7 +78,7 @@ $.getJSON("/articles", function(data) {
     })
       .then(function(data) {
         console.log(data);
-        $("#comment").empty();
+        $("#comment"+ thisId).empty();
       });
 
     $("#titleinput").val("");
@@ -107,7 +98,7 @@ $.getJSON("/articles", function(data) {
     })
       .then(function(data) {
         console.log(data);
-        $("#comment").empty();
+        $("#comment"+thisId).empty();
       });
     });
     

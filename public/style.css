@@ -1,12 +1,21 @@
 img {
     height: 200px;
-    width: 200px;
+    width: 250px;
+    text-align: center;
 }
 
 .card {
-height: 350px;
+
+height: auto;
+min-height: 300px;
+
 }
+
 #comment {
     position: fixed;
     right: 300px;
+}
+.jumbotron {
+    padding: 32px;
+    height: 250px;
 }

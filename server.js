@@ -60,7 +60,6 @@ app.get("/articles", function(req, res) {
 });
 
 app.get("/articles/:id", function(req, res) {
-
   db.Article.findOne({ _id: req.params.id })
   .populate("comment")
   .then(function(dbArticle) {
@@ -72,7 +71,6 @@ app.get("/articles/:id", function(req, res) {
 });
 
 app.post("/articles/:id", function(req, res) {
-
   db.Comments.create(req.body)
   .then(function(dbComment) {
     return db.Article.findOneAndUpdate({ _id: req.params.id }, { comment: dbComment._id }, { new: true });
